@@ -1,0 +1,12 @@
+"use strict";
+
+var _index = require("../main-thread/index");
+
+var channel = new MessageChannel();
+
+channel.port1.onmessage = function (m) {
+  return console.log("p1", m);
+}; // channel.port2.onmessage = (m)=>console.log("p2", m)
+
+
+(0, _index.upgradeElement)(document.getElementById('upgrade-me'), './dist/worker/worker.mjs', channel);

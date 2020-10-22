@@ -1,0 +1,147 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MutatorProcessor = void 0;
+
+var _offscreenCanvas = require("./commands/offscreen-canvas");
+
+var _TransferrableMutation = require("../transfer/TransferrableMutation");
+
+var _eventSubscription = require("./commands/event-subscription");
+
+var _boundingClientRect = require("./commands/bounding-client-rect");
+
+var _childList = require("./commands/child-list");
+
+var _attribute = require("./commands/attribute");
+
+var _characterData = require("./commands/character-data");
+
+var _property = require("./commands/property");
+
+var _longTask = require("./commands/long-task");
+
+var _objectMutation = require("./commands/object-mutation");
+
+var _objectCreation = require("./commands/object-creation");
+
+var _imageBitmap = require("./commands/image-bitmap");
+
+var _storage = require("./commands/storage");
+
+var _function = require("./commands/function");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class MutatorProcessor {
+  /**
+   * @param stringContext
+   * @param nodeContext
+   * @param workerContext
+   * @param sanitizer Sanitizer to apply to content if needed.
+   */
+  constructor(stringContext, nodeContext, workerContext, config, objectContext) {
+    _defineProperty(this, "mutationQueue", []);
+
+    _defineProperty(this, "pendingMutations", false);
+
+    _defineProperty(this, "syncFlush", (allowVisibleMutations = true) => {
+      if (undefined) {
+        console.group('Mutations');
+      }
+
+      const disallowedMutations = [];
+      this.mutationQueue.forEach(mutationArray => {
+        const length = mutationArray.length;
+        let operationStart = 0;
+
+        while (operationStart < length) {
+          // TransferrableMutationType is always at position 0.
+          const mutationType = mutationArray[operationStart]; // TODO(worker-dom): Hoist `allow` up to entry point (index.amp.ts) to avoid bundling `isUserVisibleMutation`.
+
+          const allow = allowVisibleMutations || !(0, _TransferrableMutation.isUserVisibleMutation)(mutationType);
+
+          if (!allow) {
+            // TODO(worker-dom): Consider returning the strings from executor.print() for better error messaging.
+            disallowedMutations.push(mutationType);
+          }
+
+          const executor = this.executors[mutationType];
+
+          if (undefined) {
+            console.log(allow ? '' : '[disallowed]', _TransferrableMutation.ReadableMutationType[mutationType], executor.print(mutationArray, operationStart));
+          }
+
+          operationStart = executor.execute(mutationArray, operationStart, allow);
+        }
+      });
+
+      if (undefined) {
+        console.groupEnd();
+      }
+
+      this.mutationQueue = [];
+      this.pendingMutations = false;
+      return disallowedMutations;
+    });
+
+    this.stringContext = stringContext;
+    this.nodeContext = nodeContext;
+    this.sanitizer = config.sanitizer;
+    this.mutationPumpFunction = config.mutationPump;
+    const args = [stringContext, nodeContext, workerContext, objectContext, config];
+
+    const sharedLongTaskProcessor = _longTask.LongTaskExecutor.apply(null, args);
+
+    this.executors = {
+      [_TransferrableMutation.TransferrableMutationType.CHILD_LIST]: _childList.ChildListProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.ATTRIBUTES]: _attribute.AttributeProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.CHARACTER_DATA]: _characterData.CharacterDataProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.PROPERTIES]: _property.PropertyProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.EVENT_SUBSCRIPTION]: _eventSubscription.EventSubscriptionProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.GET_BOUNDING_CLIENT_RECT]: _boundingClientRect.BoundingClientRectProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.LONG_TASK_START]: sharedLongTaskProcessor,
+      [_TransferrableMutation.TransferrableMutationType.LONG_TASK_END]: sharedLongTaskProcessor,
+      [_TransferrableMutation.TransferrableMutationType.OFFSCREEN_CANVAS_INSTANCE]: _offscreenCanvas.OffscreenCanvasProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.OBJECT_MUTATION]: _objectMutation.ObjectMutationProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.OBJECT_CREATION]: _objectCreation.ObjectCreationProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.IMAGE_BITMAP_INSTANCE]: _imageBitmap.ImageBitmapProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.STORAGE]: _storage.StorageProcessor.apply(null, args),
+      [_TransferrableMutation.TransferrableMutationType.FUNCTION_CALL]: _function.FunctionProcessor.apply(null, args)
+    };
+  }
+  /**
+   * Process MutationRecords from worker thread applying changes to the existing DOM.
+   * @param phase Current Phase Worker Thread exists in.
+   * @param nodes New nodes to add in the main thread with the incoming mutations.
+   * @param stringValues Additional string values to use in decoding messages.
+   * @param mutations Changes to apply in both graph shape and content of Elements.
+   */
+
+
+  mutate(phase, nodes, stringValues, mutations) {
+    this.stringContext.storeValues(stringValues);
+    this.nodeContext.createNodes(nodes, this.sanitizer);
+    this.mutationQueue = this.mutationQueue.concat(mutations);
+
+    if (!this.pendingMutations) {
+      this.pendingMutations = true;
+      this.mutationPumpFunction(this.syncFlush, phase);
+    }
+  }
+  /**
+   * Apply all stored mutations syncronously. This method works well, but can cause jank if there are too many
+   * mutations to apply in a single frame.
+   *
+   * Investigations in using asyncFlush to resolve are worth considering.
+   *
+   * @param allowVisibleMutations
+   * @return Array of mutation types that were disallowed.
+   */
+
+
+}
+
+exports.MutatorProcessor = MutatorProcessor;

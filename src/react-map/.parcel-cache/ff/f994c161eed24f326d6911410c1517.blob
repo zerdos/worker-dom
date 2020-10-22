@@ -1,0 +1,114 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NodeContext = exports.BASE_ELEMENT_INDEX = void 0;
+
+var _TransferrableNodes = require("../transfer/TransferrableNodes");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * IE11 doesn't support NodeList.prototype.forEach
+ * https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+ * @param list NodeList to iterate over
+ * @param callback method to call with each node
+ */
+const nodeListEach = (list, callback) => Array.prototype.forEach.call(list, callback);
+
+const BASE_ELEMENT_INDEX = 1;
+exports.BASE_ELEMENT_INDEX = BASE_ELEMENT_INDEX;
+
+class NodeContext {
+  /**
+   * Called when initializing a Worker, ensures the nodes in baseElement are
+   * known for transmission into the Worker and future mutation events from the
+   * Worker.
+   * @param baseElement Element that will be controlled by a Worker
+   */
+  constructor(stringContext, baseElement) {
+    _defineProperty(this, "createNodes", (buffer, sanitizer) => {
+      const nodeBuffer = new Uint16Array(buffer);
+      const nodeBufferLength = nodeBuffer.length;
+
+      for (let iterator = 0; iterator < nodeBufferLength; iterator += _TransferrableNodes.TransferrableNodeIndex.End) {
+        let node;
+
+        if (nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.NodeType] === _TransferrableNodes.NodeType.TEXT_NODE) {
+          node = document.createTextNode(this.stringContext.get(nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.TextContent]));
+        } else if (nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.NodeType] === _TransferrableNodes.NodeType.COMMENT_NODE) {
+          node = document.createComment(this.stringContext.get(nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.TextContent]));
+        } else if (nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.NodeType] === _TransferrableNodes.NodeType.DOCUMENT_FRAGMENT_NODE) {
+          node = document.createDocumentFragment();
+        } else {
+          const nodeName = this.stringContext.get(nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.NodeName]);
+          node = nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.Namespace] !== 0 ? document.createElementNS(this.stringContext.get(nodeBuffer[iterator + _TransferrableNodes.TransferrableNodeIndex.Namespace]), nodeName) : document.createElement(nodeName); // TODO(KB): Restore Properties
+          // skeleton.properties.forEach(property => {
+          //   node[`${property.name}`] = property.value;
+          // });
+          // ((skeleton as TransferrableElement)[TransferrableKeys.childNodes] || []).forEach(childNode => {
+          //   if (childNode[TransferrableKeys.transferred] === NumericBoolean.FALSE) {
+          //     node.appendChild(this.createNode(childNode as TransferrableNode));
+          //   }
+          // });
+          // If `node` is removed by the sanitizer, don't store it and return null.
+
+          if (sanitizer && !sanitizer.sanitize(node)) {
+            continue;
+          }
+        }
+
+        this.storeNode(node, nodeBuffer[iterator]);
+      }
+    });
+
+    _defineProperty(this, "getNode", id => {
+      const node = this.nodes.get(id);
+
+      if (node && node.nodeName === 'BODY') {
+        // If the node requested is the "BODY"
+        // Then we return the base node this specific <amp-script> comes from.
+        // This encapsulates each <amp-script> node.
+        return this.baseElement;
+      }
+
+      return node;
+    });
+
+    _defineProperty(this, "storeNodes", node => {
+      this.storeNode(node, ++this.count);
+      nodeListEach(node.childNodes, n => this.storeNodes(n));
+    });
+
+    this.count = 2;
+    this.stringContext = stringContext; // The nodes map is populated with two default values pointing to baseElement.
+    // These are [document, document.body] from the worker.
+
+    this.nodes = new Map([[BASE_ELEMENT_INDEX, baseElement], [2, baseElement]]);
+    this.baseElement = baseElement; // To ensure a lookup works correctly from baseElement
+    // add an index equal to the background thread document.body.
+
+    baseElement._index_ = 2; // Lastly, it's important while initializing the document that we store
+    // the default nodes present in the server rendered document.
+
+    nodeListEach(baseElement.childNodes, n => this.storeNodes(n));
+  }
+
+  /**
+   * Establish link between DOM `node` and worker-generated identifier `id`.
+   *
+   * These _shouldn't_ collide between instances of <amp-script> since
+   * each element creates it's own pool on both sides of the worker
+   * communication bridge.
+   * @param node
+   * @param id
+   */
+  storeNode(node, id) {
+    node._index_ = id;
+    this.nodes.set(id, node);
+  }
+
+}
+
+exports.NodeContext = NodeContext;

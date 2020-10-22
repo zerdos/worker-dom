@@ -40,9 +40,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: false,
         allowConsole: false,
@@ -59,9 +56,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: true,
-      }),
       babelPlugin({
         transpileToES5: false,
         allowConsole: true,
@@ -77,9 +71,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: false,
         allowConsole: false,
@@ -111,9 +102,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: false,
@@ -130,9 +118,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: true,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: true,
@@ -148,9 +133,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: false,
         allowConsole: true,
@@ -167,9 +149,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: true,
-      }),
       babelPlugin({
         transpileToES5: false,
         allowConsole: true,
@@ -185,9 +164,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: false,
@@ -204,9 +180,6 @@ const ESModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: true,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: true,
@@ -225,9 +198,6 @@ const IIFEModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: false,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: false,
@@ -244,9 +214,6 @@ const IIFEModules = [
       sourcemap: true,
     },
     plugins: [
-      replace({
-        WORKER_DOM_DEBUG: true,
-      }),
       babelPlugin({
         transpileToES5: true,
         allowConsole: true,

@@ -15,7 +15,7 @@
  */
 
 import { CommandExecutorInterface } from './interface';
-import { TransferrableMutationType, FunctionMutationIndex } from '../../transfer/TransferrableMutation';
+import { FunctionMutationIndex, TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { ResolveOrReject } from '../../transfer/Messages';
 
 let fnCallCount = 0;

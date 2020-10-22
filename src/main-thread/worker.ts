@@ -76,11 +76,14 @@ export class WorkerContext {
       ${authorScript}
       //# sourceURL=${encodeURI(config.authorURL)}`;
     this[TransferrableKeys.worker] = new Worker(URL.createObjectURL(new Blob([code])));
-    if (WORKER_DOM_DEBUG) {
+    if (process.env['WORKER_DOM_DEBUG']) {
       console.info('debug', 'hydratedNode', readableHydrateableRootNode(baseElement, config, this));
     }
     if (config.onCreateWorker) {
       config.onCreateWorker(baseElement, strings, skeleton, cssKeys);
+    }
+    if (config.messageChannel) {
+      this[TransferrableKeys.worker].addEventListener('message', (e) => config.messageChannel?.port2.postMessage(e.data, [e.data]));
     }
   }
 
@@ -95,11 +98,14 @@ export class WorkerContext {
    * @param message
    */
   messageToWorker(message: MessageToWorker, transferables?: Transferable[]) {
-    if (WORKER_DOM_DEBUG) {
+    if (process.env['WORKER_DOM_DEBUG']) {
       console.info('debug', 'messageToWorker', readableMessageToWorker(this.nodeContext, message));
     }
     if (this.config.onSendMessage) {
-      this.config.onSendMessage(message);
+      this.config.onSendMessage(message, transferables || []);
+    }
+    if (this.config.messageChannel) {
+      this.config.messageChannel.port1.postMessage(message, transferables || []);
     }
     this.worker.postMessage(message, transferables || []);
   }

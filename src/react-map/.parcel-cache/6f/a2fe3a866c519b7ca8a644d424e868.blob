@@ -1,0 +1,44 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NumericBoolean = exports.keyValueString = exports.containsIndexOf = exports.toUpper = exports.toLower = void 0;
+
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const toLower = value => value.toLowerCase();
+
+exports.toLower = toLower;
+
+const toUpper = value => value.toUpperCase();
+
+exports.toUpper = toUpper;
+
+const containsIndexOf = pos => pos !== -1;
+
+exports.containsIndexOf = containsIndexOf;
+
+const keyValueString = (key, value) => `${key}="${value}"`;
+
+exports.keyValueString = keyValueString;
+let NumericBoolean;
+exports.NumericBoolean = NumericBoolean;
+
+(function (NumericBoolean) {
+  NumericBoolean[NumericBoolean["FALSE"] = 0] = "FALSE";
+  NumericBoolean[NumericBoolean["TRUE"] = 1] = "TRUE";
+})(NumericBoolean || (exports.NumericBoolean = NumericBoolean = {}));

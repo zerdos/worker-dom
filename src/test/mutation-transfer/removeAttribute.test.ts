@@ -19,7 +19,7 @@ import { Document } from '../../worker-thread/dom/Document';
 import { MutationFromWorker } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
-import { emitter, Emitter } from '../Emitter';
+import { Emitter, emitter } from '../Emitter';
 import { createTestingDocument } from '../DocumentCreation';
 import { HTML_NAMESPACE } from '../../transfer/TransferrableNodes';
 

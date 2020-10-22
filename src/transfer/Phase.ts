@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const enum Phase {
+export enum Phase {
   Initializing = 0,
   Hydrating = 1,
   Mutating = 2,

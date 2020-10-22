@@ -15,7 +15,7 @@
  */
 
 import anyTest, { TestInterface } from 'ava';
-import { rafPolyfill, cafPolyfill } from '../../worker-thread/AnimationFrame';
+import { cafPolyfill, rafPolyfill } from '../../worker-thread/AnimationFrame';
 
 const test = anyTest as TestInterface<{ runTimeout: Function; runAllTimeouts: Function }>;
 const originalSetTimeout = globalThis.setTimeout;

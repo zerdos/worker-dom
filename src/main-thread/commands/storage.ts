@@ -15,10 +15,10 @@
  */
 
 import { CommandExecutorInterface } from './interface';
-import { TransferrableMutationType, StorageMutationIndex } from '../../transfer/TransferrableMutation';
+import { StorageMutationIndex, TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { StorageLocation } from '../../transfer/TransferrableStorage';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
-import { MessageType, StorageValueToWorker, GetOrSet } from '../../transfer/Messages';
+import { GetOrSet, MessageType, StorageValueToWorker } from '../../transfer/Messages';
 
 export const StorageProcessor: CommandExecutorInterface = (strings, nodeContext, workerContext, objectContext, config) => {
   const allowedExecution = config.executorsAllowed.includes(TransferrableMutationType.STORAGE);

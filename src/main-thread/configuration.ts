@@ -50,8 +50,10 @@ export interface InboundWorkerDOMConfiguration {
   // ---- Optional Callbacks
   // Called when worker consumes the page's initial DOM state.
   onCreateWorker?: (initialDOM: RenderableElement, strings: Array<string>, skeleton: HydrateableNode, keys: Array<string>) => void;
+
+  onSendMessage?: (message: MessageToWorker, t: Transferable[]) => void;
   // Called before a message is sent to the worker.
-  onSendMessage?: (message: MessageToWorker) => void;
+  messageChannel?: MessageChannel;
   // Called after a message is received from the worker.
   onReceiveMessage?: (message: MessageFromWorker) => void;
 }
@@ -78,10 +80,11 @@ export interface WorkerDOMConfiguration {
   // ---- Optional Callbacks
   // Called when worker consumes the page's initial DOM state.
   onCreateWorker?: (initialDOM: RenderableElement, strings: Array<string>, skeleton: HydrateableNode, keys: Array<string>) => void;
-  // Called before a message is sent to the worker.
-  onSendMessage?: (message: MessageToWorker) => void;
   // Called after a message is received from the worker.
-  onReceiveMessage?: (message: MessageFromWorker) => void;
+  messageChannel?: MessageChannel;
+  // Called after a message is received from the worker.
+  onSendMessage?: (message: MessageToWorker, t: Transferable[]) => void;
+  onReceiveMessage?: (message: MessageFromWorker, t?: any) => void;
 }
 
 export function normalizeConfiguration(config: InboundWorkerDOMConfiguration): WorkerDOMConfiguration {

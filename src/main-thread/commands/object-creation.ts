@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TransferrableMutationType, ObjectCreationIndex } from '../../transfer/TransferrableMutation';
+import { ObjectCreationIndex, TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { CommandExecutorInterface } from './interface';
 import { deserializeTransferrableObject } from '../deserializeTransferrableObject';
 

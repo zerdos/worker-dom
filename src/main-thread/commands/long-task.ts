@@ -15,7 +15,7 @@
  */
 
 import { CommandExecutor, CommandExecutorInterface } from './interface';
-import { TransferrableMutationType, ReadableMutationType, LongTaskMutationIndex } from '../../transfer/TransferrableMutation';
+import { LongTaskMutationIndex, ReadableMutationType, TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { StringContext } from '../strings';
 import { NodeContext } from '../nodes';
 import { WorkerContext } from '../worker';

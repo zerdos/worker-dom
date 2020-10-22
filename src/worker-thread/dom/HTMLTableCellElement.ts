@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { registerSubclass, definePropertyBackedAttributes } from './Element';
+import { definePropertyBackedAttributes, registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
 import { reflectProperties } from './enhanceElement';
 import { DOMTokenList } from './DOMTokenList';
-import { matchNearestParent, tagNameConditionPredicate, matchChildrenElements } from './matchElements';
+import { matchChildrenElements, matchNearestParent, tagNameConditionPredicate } from './matchElements';
 
 export class HTMLTableCellElement extends HTMLElement {
   private _headers: DOMTokenList;

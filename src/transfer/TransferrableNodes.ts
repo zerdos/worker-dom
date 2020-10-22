@@ -19,7 +19,7 @@ import { TransferrableKeys } from './TransferrableKeys';
 
 export const HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
 export const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
-export const enum NodeType {
+export enum NodeType {
   ELEMENT_NODE = 1,
   ATTRIBUTE_NODE = 2,
   TEXT_NODE = 3,
@@ -50,7 +50,7 @@ export interface TransferredNode {
   readonly [0]: number;
 }
 
-export const enum TransferredNodeIndex {
+export enum TransferredNodeIndex {
   Index = 0,
 }
 
@@ -65,7 +65,7 @@ export interface TransferrableNode extends TransferredNode {
   readonly [4]: TransferrableNamespaceURI;
 }
 
-export const enum TransferrableNodeIndex {
+export enum TransferrableNodeIndex {
   Index = 0,
   NodeType = 1,
   NodeName = 2,

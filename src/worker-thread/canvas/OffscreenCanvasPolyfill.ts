@@ -17,15 +17,15 @@
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import {
-  CanvasRenderingContext2D,
-  ImageSmoothingQuality,
-  CanvasTextAlign,
-  CanvasTextBaseline,
-  CanvasLineCap,
-  CanvasLineJoin,
   CanvasDirection,
   CanvasFillRule,
   CanvasImageSource,
+  CanvasLineCap,
+  CanvasLineJoin,
+  CanvasRenderingContext2D,
+  CanvasTextAlign,
+  CanvasTextBaseline,
+  ImageSmoothingQuality,
 } from './CanvasTypes';
 import { transfer } from '../MutationTransfer';
 import { Document } from '../dom/Document';

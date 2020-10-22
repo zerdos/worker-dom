@@ -18,10 +18,10 @@ import { MessageType } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import {
   ADD_EVENT_SUBSCRIPTION_LENGTH,
-  REMOVE_EVENT_SUBSCRIPTION_LENGTH,
-  EventSubscriptionMutationIndex,
-  TransferrableTouchList,
   AddEventRegistrationIndex,
+  EventSubscriptionMutationIndex,
+  REMOVE_EVENT_SUBSCRIPTION_LENGTH,
+  TransferrableTouchList,
 } from '../../transfer/TransferrableEvent';
 import { WorkerContext } from '../worker';
 import { CommandExecutorInterface } from './interface';
@@ -201,7 +201,9 @@ export const EventSubscriptionProcessor: CommandExecutorInterface = (strings, no
       (target as HTMLElement).removeEventListener(type, knownListeners[eventIndex]);
     }
     if (shouldTrackChanges(target as HTMLElement)) {
-      if (!inputEventSubscribed) applyDefaultInputListener(workerContext, target as RenderableElement);
+      if (!inputEventSubscribed) {
+        applyDefaultInputListener(workerContext, target as RenderableElement);
+      }
       sendValueChangeOnAttributeMutation(workerContext, target as RenderableElement);
     }
   };

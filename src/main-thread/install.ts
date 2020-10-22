@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { MutationFromWorker, MessageType, MessageFromWorker } from '../transfer/Messages';
+import { MessageFromWorker, MessageType, MutationFromWorker } from '../transfer/Messages';
 import { MutatorProcessor } from './mutator';
 import { NodeContext } from './nodes';
 import { StringContext } from './strings';
@@ -74,10 +74,6 @@ export function install(
           (data as MutationFromWorker)[TransferrableKeys.strings],
           new Uint16Array(data[TransferrableKeys.mutations]),
         );
-
-        if (config.onReceiveMessage) {
-          config.onReceiveMessage(message);
-        }
       };
 
       return new ExportedWorker(workerContext, normalizedConfig);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerSubclass, Element } from './Element';
+import { Element, registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
 import { HTMLFormControlsCollectionMixin } from './HTMLFormControlsMixin';
 import { reflectProperties } from './enhanceElement';

@@ -58,7 +58,7 @@ import { HTMLTableSectionElement } from './dom/HTMLTableSectionElement';
 import { HTMLTimeElement } from './dom/HTMLTimeElement';
 import { initialize } from './initialize';
 import { MutationObserver } from './MutationObserver';
-import { rafPolyfill, cafPolyfill } from './AnimationFrame';
+import { cafPolyfill, rafPolyfill } from './AnimationFrame';
 import { SVGElement } from './dom/SVGElement';
 import { Text } from './dom/Text';
 import { wrap as longTaskWrap } from './long-task';

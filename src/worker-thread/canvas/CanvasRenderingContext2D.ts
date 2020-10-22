@@ -15,17 +15,17 @@
  */
 
 import {
-  CanvasRenderingContext2D,
   CanvasDirection,
   CanvasFillRule,
+  CanvasGradient,
   CanvasImageSource,
   CanvasLineCap,
   CanvasLineJoin,
+  CanvasPattern,
+  CanvasRenderingContext2D,
   CanvasTextAlign,
   CanvasTextBaseline,
   ImageSmoothingQuality,
-  CanvasGradient,
-  CanvasPattern,
 } from './CanvasTypes';
 import { MessageType, OffscreenCanvasToWorker } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
@@ -65,9 +65,7 @@ export class CanvasRenderingContext2DShim<ElementType extends HTMLElement> imple
       this.implementation = new OffscreenCanvasPolyfill<ElementType>(canvas).getContext('2d');
       this.upgraded = true;
       this.polyfillUsed = true;
-    }
-
-    // If the browser supports OffscreenCanvas:
+    } // If the browser supports OffscreenCanvas:
     // 1. Use un-upgraded (not auto-synchronized) version for all calls performed immediately after
     // creation. All calls will be queued to call on upgraded version after.
     // 2. Retrieve an auto-synchronized OffscreenCanvas from the main-thread and call all methods

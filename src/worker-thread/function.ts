@@ -16,7 +16,7 @@
 
 import { TransferrableKeys } from '../transfer/TransferrableKeys';
 import { Document } from './dom/Document';
-import { MessageToWorker, MessageType, FunctionCallToWorker, ResolveOrReject } from '../transfer/Messages';
+import { FunctionCallToWorker, MessageToWorker, MessageType, ResolveOrReject } from '../transfer/Messages';
 import { transfer } from './MutationTransfer';
 import { TransferrableMutationType } from '../transfer/TransferrableMutation';
 import { store } from './strings';

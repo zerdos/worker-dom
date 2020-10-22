@@ -1,6 +1,6 @@
 import { Element } from '../../worker-thread/dom/Element';
 import { Node } from '../../worker-thread/dom/Node';
-import { SVG_NAMESPACE, HTML_NAMESPACE } from '../../transfer/TransferrableNodes';
+import { HTML_NAMESPACE, SVG_NAMESPACE } from '../../transfer/TransferrableNodes';
 import { toLower, toUpper } from '../../utils';
 
 interface Elements {

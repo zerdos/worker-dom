@@ -18,7 +18,7 @@ import anyTest, { TestInterface } from 'ava';
 import { Document } from '../../worker-thread/dom/Document';
 import { MutationFromWorker } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
-import { emitter, Emitter } from '../Emitter';
+import { Emitter, emitter } from '../Emitter';
 import { createTestingDocument } from '../DocumentCreation';
 import { NodeType } from '../../transfer/TransferrableNodes';
 

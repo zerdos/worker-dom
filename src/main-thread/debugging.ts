@@ -22,8 +22,8 @@
  * @see https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#9.4
  */
 
-import { EventToWorker, MessageType, MessageToWorker, ValueSyncToWorker, BoundingClientRectToWorker } from '../transfer/Messages';
-import { HydrateableNode, TransferredNode, TransferrableNodeIndex } from '../transfer/TransferrableNodes';
+import { BoundingClientRectToWorker, EventToWorker, MessageToWorker, MessageType, ValueSyncToWorker } from '../transfer/Messages';
+import { HydrateableNode, TransferrableNodeIndex, TransferredNode } from '../transfer/TransferrableNodes';
 import { NodeContext } from './nodes';
 import { TransferrableEvent } from '../transfer/TransferrableEvent';
 import { TransferrableKeys } from '../transfer/TransferrableKeys';

@@ -44,7 +44,7 @@ import { HTMLTableRowElement } from './dom/HTMLTableRowElement';
 import { HTMLTableSectionElement } from './dom/HTMLTableSectionElement';
 import { HTMLTimeElement } from './dom/HTMLTimeElement';
 import { Document } from './dom/Document';
-import { EventHandler, Event as WorkerDOMEvent } from './Event';
+import { Event as WorkerDOMEvent, EventHandler } from './Event';
 import { MutationObserver } from './MutationObserver';
 import { Storage } from './Storage';
 import { SVGElement } from './dom/SVGElement';

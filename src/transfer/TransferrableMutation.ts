@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const enum TransferrableMutationType {
+export enum TransferrableMutationType {
   ATTRIBUTES = 0,
   CHARACTER_DATA = 1,
   CHILD_LIST = 2,
@@ -97,7 +97,7 @@ export const ReadableMutationType: { [key: number]: string } = {
  *   ... RemovedNode.index,
  * ]
  */
-export const enum ChildListMutationIndex {
+export enum ChildListMutationIndex {
   Target = 1,
   NextSibling = 2,
   PreviousSibling = 3,
@@ -117,7 +117,7 @@ export const enum ChildListMutationIndex {
  *   Attr.value,       // 0 is the default value.
  * ]
  */
-export const enum AttributeMutationIndex {
+export enum AttributeMutationIndex {
   Target = 1,
   Name = 2,
   Namespace = 3,
@@ -133,7 +133,7 @@ export const enum AttributeMutationIndex {
  *   CharacterData.value,
  * ]
  */
-export const enum CharacterDataMutationIndex {
+export enum CharacterDataMutationIndex {
   Target = 1,
   Value = 2,
   End = 3,
@@ -149,7 +149,7 @@ export const enum CharacterDataMutationIndex {
  *   Property.value,
  * ]
  */
-export const enum PropertyMutationIndex {
+export enum PropertyMutationIndex {
   Target = 1,
   Name = 2,
   IsBoolean = 3,
@@ -164,7 +164,7 @@ export const enum PropertyMutationIndex {
  *   Target.index,
  * ]
  */
-export const enum LongTaskMutationIndex {
+export enum LongTaskMutationIndex {
   Target = 1,
   End = 2,
 }
@@ -176,7 +176,7 @@ export const enum LongTaskMutationIndex {
  *   Target.index,
  * ]
  */
-export const enum OffscreenCanvasMutationIndex {
+export enum OffscreenCanvasMutationIndex {
   Target = 1,
   End = 2,
 }
@@ -188,7 +188,7 @@ export const enum OffscreenCanvasMutationIndex {
  *   Target.index,
  * ]
  */
-export const enum ImageBitmapMutationIndex {
+export enum ImageBitmapMutationIndex {
   Target = 1,
   CallIndex = 2,
   End = 3,
@@ -202,7 +202,7 @@ export const enum ImageBitmapMutationIndex {
  * ]
  * // TODO(choumx): Fix naming inconsistency.
  */
-export const enum ObjectMutationIndex {
+export enum ObjectMutationIndex {
   FunctionName = 1,
   ArgumentCount = 2,
   SerializedTarget = 3,
@@ -217,7 +217,7 @@ export const enum ObjectMutationIndex {
  * ]
  * // TODO(choumx): Fix naming inconsistency.
  */
-export const enum ObjectCreationIndex {
+export enum ObjectCreationIndex {
   FunctionName = 1,
   ObjectId = 2,
   ArgumentCount = 3,
@@ -229,7 +229,7 @@ export const enum ObjectCreationIndex {
  * Used in OBJECT_MUTATION and OBJECT_CREATION mutations for typing non-primitives
  * passed in function parameters, e.g. <image> in CanvasRenderingContext2D.drawImage(<image>).
  */
-export const enum TransferrableObjectType {
+export enum TransferrableObjectType {
   SmallInt = 1,
   Float = 2,
   String = 3,
@@ -249,7 +249,7 @@ export const enum TransferrableObjectType {
  *   string(value),
  * ]
  */
-export const enum StorageMutationIndex {
+export enum StorageMutationIndex {
   Operation = 1,
   Location = 2,
   Key = 3,
@@ -265,7 +265,7 @@ export const enum StorageMutationIndex {
  *   string(value)
  * ]
  */
-export const enum FunctionMutationIndex {
+export enum FunctionMutationIndex {
   Status = 1,
   Index = 2,
   Value = 3,

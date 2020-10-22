@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const enum StorageLocation {
+export enum StorageLocation {
   Local = 0,
   Session = 1,
   AmpState = 2,

@@ -16,7 +16,7 @@
 
 import anyTest, { TestInterface } from 'ava';
 import { createTestingDocument } from './DocumentCreation';
-import { Storage, createStorage } from '../worker-thread/Storage';
+import { createStorage, Storage } from '../worker-thread/Storage';
 import { StorageLocation } from '../transfer/TransferrableStorage';
 
 const test = anyTest as TestInterface<{

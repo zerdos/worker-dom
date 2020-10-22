@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerSubclass, Element } from './Element';
+import { Element, registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
 import { matchChildElement, matchChildrenElements, tagNameConditionPredicate } from './matchElements';
 import { NodeName } from './Node';

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { registerSubclass, Element } from './Element';
+import { Element, registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
 import { reflectProperties } from './enhanceElement';
 import { HTMLInputLabelsMixin } from './HTMLInputLabelsMixin';
-import { matchChildrenElements, matchChildElement, tagNameConditionPredicate } from './matchElements';
+import { matchChildElement, matchChildrenElements, tagNameConditionPredicate } from './matchElements';
 import { HTMLOptionElement } from './HTMLOptionElement';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { Node } from './Node';
@@ -26,13 +26,13 @@ import { Node } from './Node';
 const isOptionPredicate = tagNameConditionPredicate(['OPTION']);
 const isSelectedOptionPredicate = (element: Element): boolean => isOptionPredicate(element) && (element as HTMLOptionElement).selected === true;
 
-const enum SizeDefaults {
+enum SizeDefaults {
   SINGLE = 1,
   MULTIPLE = 4,
   UNMODIFIED = -1,
 }
 
-const enum TypeDefaults {
+enum TypeDefaults {
   SINGLE = 'select-multiple',
   MULTIPLE = 'select-one',
 }

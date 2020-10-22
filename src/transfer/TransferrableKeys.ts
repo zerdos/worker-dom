@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const enum TransferrableKeys {
+export enum TransferrableKeys {
   nodeType = 0,
   localOrNodeName = 1,
   attributes = 2,

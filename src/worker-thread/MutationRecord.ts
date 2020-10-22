@@ -37,7 +37,7 @@ export interface MutationRecord {
 // Add a new types of MutationRecord to capture changes not normally reported by MutationObserver on Nodes.
 // 1. PROPERTIES to enable capture of Node.property changes
 // 2. COMMAND to enable capture of requests for data for Worker from Main Thread
-export const enum MutationRecordType {
+export enum MutationRecordType {
   ATTRIBUTES = 0,
   CHARACTER_DATA = 1,
   CHILD_LIST = 2,

@@ -22,7 +22,7 @@ import { TransferrableBoundingClientRect } from './TransferrableBoundClientRect'
 import { Phase } from './Phase';
 import { StorageLocation } from './TransferrableStorage';
 
-export const enum MessageType {
+export enum MessageType {
   // INIT = 0,
   EVENT = 1,
   HYDRATE = 2,
@@ -111,7 +111,7 @@ export type MessageToWorker =
 /**
  * Can parameterize a method invocation message as a getter or setter.
  */
-export const enum GetOrSet {
+export enum GetOrSet {
   GET = 1,
   SET = 2,
 }
@@ -119,7 +119,7 @@ export const enum GetOrSet {
 /**
  * Can parameterize a method invocation value as a resolved or rejected.
  */
-export const enum ResolveOrReject {
+export enum ResolveOrReject {
   RESOLVE = 1,
   REJECT = 2,
 }

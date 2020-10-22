@@ -20,7 +20,7 @@ import { MutationFromWorker } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { HTML_NAMESPACE } from '../../transfer/TransferrableNodes';
-import { emitter, Emitter } from '../Emitter';
+import { Emitter, emitter } from '../Emitter';
 import { createTestingDocument } from '../DocumentCreation';
 
 const test = anyTest as TestInterface<{

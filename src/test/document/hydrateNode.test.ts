@@ -1,7 +1,7 @@
 import anyTest, { TestInterface } from 'ava';
 import { createTestingDocument } from '../DocumentCreation';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
-import { NodeType, HydrateableNode, HTML_NAMESPACE } from '../../transfer/TransferrableNodes';
+import { HTML_NAMESPACE, HydrateableNode, NodeType } from '../../transfer/TransferrableNodes';
 import { Document } from '../../worker-thread/dom/Document';
 
 const test = anyTest as TestInterface<{

@@ -1,0 +1,107 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TransferrableKeys = void 0;
+
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+let TransferrableKeys;
+exports.TransferrableKeys = TransferrableKeys;
+
+(function (TransferrableKeys) {
+  TransferrableKeys[TransferrableKeys["nodeType"] = 0] = "nodeType";
+  TransferrableKeys[TransferrableKeys["localOrNodeName"] = 1] = "localOrNodeName";
+  TransferrableKeys[TransferrableKeys["attributes"] = 2] = "attributes";
+  TransferrableKeys[TransferrableKeys["properties"] = 3] = "properties";
+  TransferrableKeys[TransferrableKeys["childNodes"] = 4] = "childNodes";
+  TransferrableKeys[TransferrableKeys["textContent"] = 5] = "textContent";
+  TransferrableKeys[TransferrableKeys["namespaceURI"] = 6] = "namespaceURI";
+  TransferrableKeys[TransferrableKeys["index"] = 7] = "index";
+  TransferrableKeys[TransferrableKeys["creationFormat"] = 8] = "creationFormat";
+  TransferrableKeys[TransferrableKeys["transferredFormat"] = 9] = "transferredFormat";
+  TransferrableKeys[TransferrableKeys["handlers"] = 10] = "handlers";
+  TransferrableKeys[TransferrableKeys["transferred"] = 11] = "transferred";
+  TransferrableKeys[TransferrableKeys["type"] = 12] = "type";
+  TransferrableKeys[TransferrableKeys["target"] = 13] = "target";
+  TransferrableKeys[TransferrableKeys["addedNodes"] = 14] = "addedNodes";
+  TransferrableKeys[TransferrableKeys["removedNodes"] = 15] = "removedNodes";
+  TransferrableKeys[TransferrableKeys["previousSibling"] = 16] = "previousSibling";
+  TransferrableKeys[TransferrableKeys["nextSibling"] = 17] = "nextSibling";
+  TransferrableKeys[TransferrableKeys["attributeName"] = 18] = "attributeName";
+  TransferrableKeys[TransferrableKeys["attributeNamespace"] = 19] = "attributeNamespace";
+  TransferrableKeys[TransferrableKeys["propertyName"] = 20] = "propertyName";
+  TransferrableKeys[TransferrableKeys["value"] = 21] = "value";
+  TransferrableKeys[TransferrableKeys["oldValue"] = 22] = "oldValue";
+  TransferrableKeys[TransferrableKeys["addedEvents"] = 23] = "addedEvents";
+  TransferrableKeys[TransferrableKeys["removedEvents"] = 24] = "removedEvents";
+  TransferrableKeys[TransferrableKeys["bubbles"] = 25] = "bubbles";
+  TransferrableKeys[TransferrableKeys["cancelable"] = 26] = "cancelable";
+  TransferrableKeys[TransferrableKeys["cancelBubble"] = 27] = "cancelBubble";
+  TransferrableKeys[TransferrableKeys["currentTarget"] = 28] = "currentTarget";
+  TransferrableKeys[TransferrableKeys["defaultPrevented"] = 29] = "defaultPrevented";
+  TransferrableKeys[TransferrableKeys["eventPhase"] = 30] = "eventPhase";
+  TransferrableKeys[TransferrableKeys["isTrusted"] = 31] = "isTrusted";
+  TransferrableKeys[TransferrableKeys["returnValue"] = 32] = "returnValue";
+  TransferrableKeys[TransferrableKeys["timeStamp"] = 33] = "timeStamp";
+  TransferrableKeys[TransferrableKeys["scoped"] = 34] = "scoped";
+  TransferrableKeys[TransferrableKeys["keyCode"] = 35] = "keyCode";
+  TransferrableKeys[TransferrableKeys["mutations"] = 36] = "mutations";
+  TransferrableKeys[TransferrableKeys["nodes"] = 37] = "nodes";
+  TransferrableKeys[TransferrableKeys["data"] = 38] = "data";
+  TransferrableKeys[TransferrableKeys["event"] = 39] = "event";
+  TransferrableKeys[TransferrableKeys["sync"] = 40] = "sync";
+  TransferrableKeys[TransferrableKeys["strings"] = 41] = "strings";
+  TransferrableKeys[TransferrableKeys["records"] = 42] = "records";
+  TransferrableKeys[TransferrableKeys["tokens"] = 43] = "tokens";
+  TransferrableKeys[TransferrableKeys["storeAttribute"] = 44] = "storeAttribute";
+  TransferrableKeys[TransferrableKeys["scopingRoot"] = 45] = "scopingRoot";
+  TransferrableKeys[TransferrableKeys["propertyBackedAttributes"] = 46] = "propertyBackedAttributes";
+  TransferrableKeys[TransferrableKeys["checked"] = 47] = "checked";
+  TransferrableKeys[TransferrableKeys["indeterminate"] = 48] = "indeterminate";
+  TransferrableKeys[TransferrableKeys["size"] = 49] = "size";
+  TransferrableKeys[TransferrableKeys["stop"] = 50] = "stop";
+  TransferrableKeys[TransferrableKeys["end"] = 51] = "end";
+  TransferrableKeys[TransferrableKeys["selected"] = 52] = "selected";
+  TransferrableKeys[TransferrableKeys["command"] = 53] = "command";
+  TransferrableKeys[TransferrableKeys["phase"] = 54] = "phase";
+  TransferrableKeys[TransferrableKeys["worker"] = 55] = "worker";
+  TransferrableKeys[TransferrableKeys["insertedNode"] = 56] = "insertedNode";
+  TransferrableKeys[TransferrableKeys["removedNode"] = 57] = "removedNode";
+  TransferrableKeys[TransferrableKeys["allowTransfer"] = 58] = "allowTransfer";
+  TransferrableKeys[TransferrableKeys["observe"] = 59] = "observe";
+  TransferrableKeys[TransferrableKeys["pageX"] = 60] = "pageX";
+  TransferrableKeys[TransferrableKeys["pageY"] = 61] = "pageY";
+  TransferrableKeys[TransferrableKeys["touches"] = 62] = "touches";
+  TransferrableKeys[TransferrableKeys["changedTouches"] = 63] = "changedTouches";
+  TransferrableKeys[TransferrableKeys["hydrateNode"] = 64] = "hydrateNode";
+  TransferrableKeys[TransferrableKeys["offsetX"] = 65] = "offsetX";
+  TransferrableKeys[TransferrableKeys["offsetY"] = 66] = "offsetY";
+  TransferrableKeys[TransferrableKeys["mutated"] = 67] = "mutated";
+  TransferrableKeys[TransferrableKeys["serializeAsTransferrableObject"] = 68] = "serializeAsTransferrableObject";
+  TransferrableKeys[TransferrableKeys["retrieveCanvasPattern"] = 69] = "retrieveCanvasPattern";
+  TransferrableKeys[TransferrableKeys["patternImplementation"] = 70] = "patternImplementation";
+  TransferrableKeys[TransferrableKeys["patternUpgraded"] = 71] = "patternUpgraded";
+  TransferrableKeys[TransferrableKeys["patternUpgradePromise"] = 72] = "patternUpgradePromise";
+  TransferrableKeys[TransferrableKeys["callIndex"] = 73] = "callIndex";
+  TransferrableKeys[TransferrableKeys["storageKey"] = 74] = "storageKey";
+  TransferrableKeys[TransferrableKeys["storageLocation"] = 75] = "storageLocation";
+  TransferrableKeys[TransferrableKeys["propertyEventHandlers"] = 76] = "propertyEventHandlers";
+  TransferrableKeys[TransferrableKeys["functionIdentifier"] = 77] = "functionIdentifier";
+  TransferrableKeys[TransferrableKeys["functionArguments"] = 78] = "functionArguments";
+  TransferrableKeys[TransferrableKeys["END"] = 78] = "END";
+})(TransferrableKeys || (exports.TransferrableKeys = TransferrableKeys = {}));

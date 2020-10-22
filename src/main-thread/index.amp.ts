@@ -19,7 +19,7 @@
  */
 
 import { fetchAndInstall, install } from './install';
-import { WorkerDOMConfiguration, LongTaskFunction } from './configuration';
+import { LongTaskFunction, WorkerDOMConfiguration } from './configuration';
 import { toLower } from '../utils';
 import { ExportedWorker } from './exported-worker';
 

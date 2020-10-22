@@ -57,7 +57,7 @@ import { Comment } from './dom/Comment';
 import { DOMTokenList } from './dom/DOMTokenList';
 import { DocumentFragment } from './dom/DocumentFragment';
 import { Element } from './dom/Element';
-import { rafPolyfill, cafPolyfill } from './AnimationFrame';
+import { cafPolyfill, rafPolyfill } from './AnimationFrame';
 
 const globalScope: GlobalScope = {
   innerWidth: 0,

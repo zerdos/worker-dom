@@ -15,7 +15,7 @@
  */
 
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
-import { MessageType, ImageBitmapToWorker } from '../../transfer/Messages';
+import { ImageBitmapToWorker, MessageType } from '../../transfer/Messages';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { HTMLImageElement } from '../dom/HTMLImageElement';
 import { HTMLCanvasElement } from '../dom/HTMLCanvasElement';

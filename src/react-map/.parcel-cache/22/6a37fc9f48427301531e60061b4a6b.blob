@@ -1,0 +1,125 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StorageProcessor = void 0;
+
+var _TransferrableMutation = require("../../transfer/TransferrableMutation");
+
+var _TransferrableStorage = require("../../transfer/TransferrableStorage");
+
+var _TransferrableKeys = require("../../transfer/TransferrableKeys");
+
+var _Messages = require("../../transfer/Messages");
+
+/**
+ * Copyright 2019 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const StorageProcessor = (strings, nodeContext, workerContext, objectContext, config) => {
+  const allowedExecution = config.executorsAllowed.includes(_TransferrableMutation.TransferrableMutationType.STORAGE);
+
+  const get = (location, key) => {
+    if (config.sanitizer && location === _TransferrableStorage.StorageLocation.AmpState) {
+      config.sanitizer.getStorage(location, key).then(value => {
+        const message = {
+          [_TransferrableKeys.TransferrableKeys.type]: _Messages.MessageType.GET_STORAGE,
+          [_TransferrableKeys.TransferrableKeys.storageKey]: key || '',
+          [_TransferrableKeys.TransferrableKeys.storageLocation]: location,
+          [_TransferrableKeys.TransferrableKeys.value]: value
+        };
+        workerContext.messageToWorker(message);
+      });
+    } else {
+      console.error(`STORAGE: Sanitizer not found or unsupported location:`, location);
+    }
+  };
+
+  const set = (location, key, value) => {
+    if (config.sanitizer) {
+      // TODO: Message worker so AMP.setState() can be Promise-able.
+      config.sanitizer.setStorage(location, key, value);
+    } else {
+      let storage;
+
+      if (location === _TransferrableStorage.StorageLocation.Local) {
+        storage = window.localStorage;
+      } else if (location === _TransferrableStorage.StorageLocation.Session) {
+        storage = window.sessionStorage;
+      }
+
+      if (storage) {
+        if (key == null) {
+          if (value == null) {
+            storage.clear();
+          } else {
+            throw new Error('Unexpected storage operation.');
+          }
+        } else {
+          if (value == null) {
+            storage.removeItem(key);
+          } else {
+            storage.setItem(key, value);
+          }
+        }
+      } else {
+        console.error(`STORAGE: Unexpected location: "${location}".`);
+      }
+    }
+  };
+
+  return {
+    execute(mutations, startPosition, allowedMutation) {
+      if (allowedExecution && allowedMutation) {
+        const operation = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Operation];
+        const location = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Location];
+        const keyIndex = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Key];
+        const valueIndex = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Value]; // TODO(choumx): Clean up key/value strings (or don't store them in the first place)
+        // to avoid leaking memory.
+
+        const key = keyIndex > 0 ? strings.get(keyIndex) : null;
+        const value = valueIndex > 0 ? strings.get(valueIndex) : null;
+
+        if (operation === _Messages.GetOrSet.GET) {
+          get(location, key);
+        } else if (operation === _Messages.GetOrSet.SET) {
+          set(location, key, value);
+        }
+      }
+
+      return startPosition + _TransferrableMutation.StorageMutationIndex.End;
+    },
+
+    print(mutations, startPosition) {
+      const operation = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Operation];
+      const location = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Location];
+      const keyIndex = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Key];
+      const valueIndex = mutations[startPosition + _TransferrableMutation.StorageMutationIndex.Value];
+      const key = keyIndex > 0 ? strings.get(keyIndex) : null;
+      const value = valueIndex > 0 ? strings.get(valueIndex) : null;
+      return {
+        type: 'STORAGE',
+        operation,
+        location,
+        key,
+        value,
+        allowedExecution
+      };
+    }
+
+  };
+};
+
+exports.StorageProcessor = StorageProcessor;

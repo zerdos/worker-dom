@@ -15,7 +15,7 @@
  */
 
 import { CommandExecutorInterface } from './interface';
-import { TransferrableMutationType, ImageBitmapMutationIndex } from '../../transfer/TransferrableMutation';
+import { ImageBitmapMutationIndex, TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { MessageType } from '../../transfer/Messages';
 

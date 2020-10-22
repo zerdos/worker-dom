@@ -18,7 +18,7 @@ import { NodeContext } from './nodes';
 import { StringContext } from './strings';
 import { WorkerContext } from './worker';
 import { OffscreenCanvasProcessor } from './commands/offscreen-canvas';
-import { TransferrableMutationType, ReadableMutationType, isUserVisibleMutation } from '../transfer/TransferrableMutation';
+import { isUserVisibleMutation, ReadableMutationType, TransferrableMutationType } from '../transfer/TransferrableMutation';
 import { EventSubscriptionProcessor } from './commands/event-subscription';
 import { BoundingClientRectProcessor } from './commands/bounding-client-rect';
 import { ChildListProcessor } from './commands/child-list';
@@ -27,7 +27,7 @@ import { CharacterDataProcessor } from './commands/character-data';
 import { PropertyProcessor } from './commands/property';
 import { LongTaskExecutor } from './commands/long-task';
 import { CommandExecutor } from './commands/interface';
-import { WorkerDOMConfiguration, MutationPumpFunction } from './configuration';
+import { MutationPumpFunction, WorkerDOMConfiguration } from './configuration';
 import { Phase } from '../transfer/Phase';
 import { ObjectMutationProcessor } from './commands/object-mutation';
 import { ObjectCreationProcessor } from './commands/object-creation';
@@ -118,7 +118,7 @@ export class MutatorProcessor {
    * @return Array of mutation types that were disallowed.
    */
   private syncFlush = (allowVisibleMutations: boolean = true): TransferrableMutationType[] => {
-    if (WORKER_DOM_DEBUG) {
+    if (process.env['WORKER_DOM_DEBUG']) {
       console.group('Mutations');
     }
     const disallowedMutations: TransferrableMutationType[] = [];
@@ -136,13 +136,13 @@ export class MutatorProcessor {
           disallowedMutations.push(mutationType);
         }
         const executor = this.executors[mutationType];
-        if (WORKER_DOM_DEBUG) {
+        if (process.env['WORKER_DOM_DEBUG']) {
           console.log(allow ? '' : '[disallowed]', ReadableMutationType[mutationType], executor.print(mutationArray, operationStart));
         }
         operationStart = executor.execute(mutationArray, operationStart, allow);
       }
     });
-    if (WORKER_DOM_DEBUG) {
+    if (process.env['WORKER_DOM_DEBUG']) {
       console.groupEnd();
     }
     this.mutationQueue = [];

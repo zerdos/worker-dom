@@ -16,7 +16,7 @@
 
 import { Document } from '../dom/Document';
 import { StorageLocation } from '../../transfer/TransferrableStorage';
-import { StorageValueToWorker, MessageType, MessageToWorker, GetOrSet } from '../../transfer/Messages';
+import { GetOrSet, MessageToWorker, MessageType, StorageValueToWorker } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { store } from '../strings';

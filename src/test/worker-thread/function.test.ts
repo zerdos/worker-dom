@@ -15,9 +15,9 @@
  */
 
 import anyTest, { TestInterface } from 'ava';
-import { exportFunction, callFunctionMessageHandler, resetForTesting } from '../../worker-thread/function';
+import { callFunctionMessageHandler, exportFunction, resetForTesting } from '../../worker-thread/function';
 import { createTestingDocument } from '../DocumentCreation';
-import { MutationFromWorker, ResolveOrReject, MessageType } from '../../transfer/Messages';
+import { MessageType, MutationFromWorker, ResolveOrReject } from '../../transfer/Messages';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 import { Document } from '../../worker-thread/dom/Document';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';

@@ -1,0 +1,64 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ResolveOrReject = exports.GetOrSet = exports.MessageType = void 0;
+
+var _TransferrableKeys = require("./TransferrableKeys");
+
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+let MessageType;
+exports.MessageType = MessageType;
+
+(function (MessageType) {
+  MessageType[MessageType["EVENT"] = 1] = "EVENT";
+  MessageType[MessageType["HYDRATE"] = 2] = "HYDRATE";
+  MessageType[MessageType["MUTATE"] = 3] = "MUTATE";
+  MessageType[MessageType["SYNC"] = 4] = "SYNC";
+  MessageType[MessageType["RESIZE"] = 5] = "RESIZE";
+  MessageType[MessageType["GET_BOUNDING_CLIENT_RECT"] = 6] = "GET_BOUNDING_CLIENT_RECT";
+  MessageType[MessageType["LONG_TASK_START"] = 7] = "LONG_TASK_START";
+  MessageType[MessageType["LONG_TASK_END"] = 8] = "LONG_TASK_END";
+  MessageType[MessageType["OFFSCREEN_CANVAS_INSTANCE"] = 9] = "OFFSCREEN_CANVAS_INSTANCE";
+  MessageType[MessageType["IMAGE_BITMAP_INSTANCE"] = 10] = "IMAGE_BITMAP_INSTANCE";
+  MessageType[MessageType["GET_STORAGE"] = 11] = "GET_STORAGE";
+  MessageType[MessageType["FUNCTION"] = 12] = "FUNCTION";
+})(MessageType || (exports.MessageType = MessageType = {}));
+
+/**
+ * Can parameterize a method invocation message as a getter or setter.
+ */
+let GetOrSet;
+/**
+ * Can parameterize a method invocation value as a resolved or rejected.
+ */
+
+exports.GetOrSet = GetOrSet;
+
+(function (GetOrSet) {
+  GetOrSet[GetOrSet["GET"] = 1] = "GET";
+  GetOrSet[GetOrSet["SET"] = 2] = "SET";
+})(GetOrSet || (exports.GetOrSet = GetOrSet = {}));
+
+let ResolveOrReject;
+exports.ResolveOrReject = ResolveOrReject;
+
+(function (ResolveOrReject) {
+  ResolveOrReject[ResolveOrReject["RESOLVE"] = 1] = "RESOLVE";
+  ResolveOrReject[ResolveOrReject["REJECT"] = 2] = "REJECT";
+})(ResolveOrReject || (exports.ResolveOrReject = ResolveOrReject = {}));

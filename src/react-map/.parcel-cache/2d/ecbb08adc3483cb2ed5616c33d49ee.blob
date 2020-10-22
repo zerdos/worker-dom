@@ -1,0 +1,100 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createHydrateableRootNode = createHydrateableRootNode;
+exports.createReadableHydrateableRootNode = createReadableHydrateableRootNode;
+
+var _TransferrableNodes = require("../transfer/TransferrableNodes");
+
+var _TransferrableKeys = require("../transfer/TransferrableKeys");
+
+var _utils = require("../utils");
+
+var _eventSubscription = require("./commands/event-subscription");
+
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const NODES_ALLOWED_TO_TRANSMIT_TEXT_CONTENT = [_TransferrableNodes.NodeType.COMMENT_NODE, _TransferrableNodes.NodeType.TEXT_NODE];
+/**
+ * Serializes a DOM element for transport to the worker.
+ * @param element
+ * @param minimizeString Function for minimizing strings for optimized ferrying across postMessage.
+ */
+
+function createHydrateableNode(element, minimizeString, hydrateFilter, workerContext) {
+  const filteredChildNodes = [].slice.call(element.childNodes).filter(hydrateFilter);
+  const hydrated = {
+    [_TransferrableKeys.TransferrableKeys.index]: element._index_,
+    [_TransferrableKeys.TransferrableKeys.transferred]: _utils.NumericBoolean.FALSE,
+    [_TransferrableKeys.TransferrableKeys.nodeType]: element.nodeType,
+    [_TransferrableKeys.TransferrableKeys.localOrNodeName]: minimizeString(element.localName || element.nodeName),
+    [_TransferrableKeys.TransferrableKeys.childNodes]: filteredChildNodes.map(child => createHydrateableNode(child, minimizeString, hydrateFilter, workerContext)),
+    [_TransferrableKeys.TransferrableKeys.attributes]: [].map.call(element.attributes || [], attribute => [minimizeString(attribute.namespaceURI || 'null'), minimizeString(attribute.name), minimizeString(attribute.value)])
+  };
+
+  if (element.namespaceURI != null) {
+    hydrated[_TransferrableKeys.TransferrableKeys.namespaceURI] = minimizeString(element.namespaceURI);
+  }
+
+  if (NODES_ALLOWED_TO_TRANSMIT_TEXT_CONTENT.includes(element.nodeType) && element.textContent !== null) {
+    hydrated[_TransferrableKeys.TransferrableKeys.textContent] = minimizeString(element.textContent);
+  }
+
+  (0, _eventSubscription.applyDefaultInputListener)(workerContext, element);
+  (0, _eventSubscription.sendValueChangeOnAttributeMutation)(workerContext, element);
+  return hydrated;
+}
+/**
+ * @param element
+ */
+
+
+function createHydrateableRootNode(element, config, workerContext) {
+  const hydrateFilter = config.hydrateFilter || (() => true);
+
+  const strings = [];
+  const stringMap = new Map();
+
+  const storeString = value => {
+    if (stringMap.has(value)) {
+      // Safe to cast since we verified the mapping contains the value.
+      return stringMap.get(value);
+    }
+
+    const count = strings.length;
+    stringMap.set(value, count);
+    strings.push(value);
+    return count;
+  };
+
+  const skeleton = createHydrateableNode(element, storeString, hydrateFilter, workerContext);
+  return {
+    skeleton,
+    strings
+  };
+}
+/**
+ * @param element
+ */
+
+
+function createReadableHydrateableRootNode(element, config, workerContext) {
+  // "Readable" variant doesn't do any string minimization so we can output it for debugging purposes.
+  // Note that this intentionally breaks the type contract of createHydrateableNode() and HydrateableNode.
+  return createHydrateableNode(element, value => value, config.hydrateFilter || (() => true), workerContext);
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="d465a40a75e92ddb8900d89711c6ef0d" rel="stylesheet" type="text/css">
+  <!-- <script src="/dist/main.js" nomodule defer></script> -->
+  <!-- This comment block is intended to make it easier to test both the script module and nomodule path -->
+  <!-- Comment either block to enable module/nomodule or disable it. -->
+  <!-- <script src="/dist/main.js" defer></script> -->
+</head>
+<body>
+  <div src="dist/main.js" id="upgrade-me"></div>
+  
+  <script src="b0ea2c3a2a78f8e01c5db28e9d457171" data-parcel-key="ed180606da49ce2c6d5ccbb0e40a4293">
+
+  </script>
+ 
+  <!-- This comment block is intended to make it easier to test both the script module and nomodule path -->
+  <!-- Comment either block to enable module/nomodule or disable it. -->
+  <!-- <script async=false defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      MainThread.upgradeElement(document.getElementById('upgrade-me'), '/dist/worker/worker.js');
+    }, false);
+  </script> -->
+</body>
+</html>

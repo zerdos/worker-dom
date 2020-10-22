@@ -15,7 +15,7 @@
  */
 
 import anyTest, { TestInterface } from 'ava';
-import { HTMLElement, appendGlobalEventProperties } from '../../worker-thread/dom/HTMLElement';
+import { appendGlobalEventProperties, HTMLElement } from '../../worker-thread/dom/HTMLElement';
 import { createTestingDocument } from '../DocumentCreation';
 import { Document } from '../../worker-thread/dom/Document';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';

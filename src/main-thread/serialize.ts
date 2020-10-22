@@ -17,7 +17,7 @@
 import { HydrateableNode, NodeType } from '../transfer/TransferrableNodes';
 import { TransferrableKeys } from '../transfer/TransferrableKeys';
 import { NumericBoolean } from '../utils';
-import { WorkerDOMConfiguration, HydrationFilterPredicate } from './configuration';
+import { HydrationFilterPredicate, WorkerDOMConfiguration } from './configuration';
 import { applyDefaultInputListener, sendValueChangeOnAttributeMutation } from './commands/event-subscription';
 import { WorkerContext } from './worker';
 

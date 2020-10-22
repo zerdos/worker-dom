@@ -17,7 +17,7 @@
 import anyTest, { TestInterface } from 'ava';
 import { Env } from './helpers/env';
 import { install } from '../../main-thread/install';
-import { HydrateableNode, NodeType, HTML_NAMESPACE, SVG_NAMESPACE } from '../../transfer/TransferrableNodes';
+import { HTML_NAMESPACE, HydrateableNode, NodeType, SVG_NAMESPACE } from '../../transfer/TransferrableNodes';
 import { TransferrableKeys } from '../../transfer/TransferrableKeys';
 
 const test = anyTest as TestInterface<{

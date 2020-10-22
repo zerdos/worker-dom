@@ -59,7 +59,7 @@ import { Text } from '../worker-thread/dom/Text';
 import { DOMTokenList } from '../worker-thread/dom/DOMTokenList';
 import { HTMLDataListElement } from '../worker-thread/dom/HTMLDataListElement';
 import { Element } from '../worker-thread/dom/Element';
-import { rafPolyfill, cafPolyfill } from '../worker-thread/AnimationFrame';
+import { cafPolyfill, rafPolyfill } from '../worker-thread/AnimationFrame';
 
 Object.defineProperty(global, 'ServiceWorkerContainer', {
   configurable: true,

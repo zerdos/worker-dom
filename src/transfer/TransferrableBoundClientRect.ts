@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const enum BoundClientRectMutationIndex {
+export enum BoundClientRectMutationIndex {
   Target = 1,
   End = 2,
 }

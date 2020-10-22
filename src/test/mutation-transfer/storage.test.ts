@@ -17,7 +17,7 @@
 import anyTest, { TestInterface } from 'ava';
 import { Document } from '../../worker-thread/dom/Document';
 import { GetOrSet } from '../../transfer/Messages';
-import { Storage, createStorage } from '../../worker-thread/Storage';
+import { createStorage, Storage } from '../../worker-thread/Storage';
 import { StorageLocation } from '../../transfer/TransferrableStorage';
 import { TransferrableMutationType } from '../../transfer/TransferrableMutation';
 import { createTestingDocument } from '../DocumentCreation';

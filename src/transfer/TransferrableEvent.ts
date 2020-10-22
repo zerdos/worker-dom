@@ -20,7 +20,7 @@ import { TransferrableKeys } from './TransferrableKeys';
 interface TransferrableTouch {
   [key: number]: number;
 }
-export const enum TransferrableTouchIndex {
+export enum TransferrableTouchIndex {
   Identifier = 0,
   ScreenX = 1,
   ScreenY = 2,
@@ -70,7 +70,7 @@ export interface TransferrableEvent {
  *   workerDOMPreventDefault
  * ]
  */
-export const enum AddEventRegistrationIndex {
+export enum AddEventRegistrationIndex {
   Type = 0,
   Index = 1,
   Capture = 2,
@@ -83,7 +83,7 @@ export const ADD_EVENT_SUBSCRIPTION_LENGTH = 6;
 /**
  * Remove Event Registration Transfer
  */
-export const enum RemoveEventRegistrationIndex {
+export enum RemoveEventRegistrationIndex {
   Type = 0,
   Index = 1,
 }
@@ -101,7 +101,7 @@ export const REMOVE_EVENT_SUBSCRIPTION_LENGTH = 2;
  *   ...AddEvent<AddEventRegistration>,
  * ]
  */
-export const enum EventSubscriptionMutationIndex {
+export enum EventSubscriptionMutationIndex {
   Target = 1,
   RemoveEventListenerCount = 2,
   AddEventListenerCount = 3,

@@ -1,0 +1,164 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.readableMessageToWorker = readableMessageToWorker;
+exports.readableTransferredNode = exports.readableHydrateableRootNode = void 0;
+
+var _Messages = require("../transfer/Messages");
+
+var _TransferrableNodes = require("../transfer/TransferrableNodes");
+
+var _TransferrableKeys = require("../transfer/TransferrableKeys");
+
+var _serialize = require("./serialize");
+
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @fileoverview Converts index-based worker messages to human-readable objects.
+ *
+ * Requires manual upkeep to keep consistency with messages and enums.
+ * This allows us to continue using 'const enum' for enum inlining.
+ * @see https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#9.4
+ */
+
+/**
+ * @param element
+ */
+const readableHydrateableRootNode = (element, config, workerContext) => readableHydrateableNode((0, _serialize.createReadableHydrateableRootNode)(element, config, workerContext));
+/**
+ * @param nodeContext {NodeContext}
+ * @param node {TransferredNode}
+ */
+
+
+exports.readableHydrateableRootNode = readableHydrateableRootNode;
+
+const readableTransferredNode = (nodeContext, node) => node != null && nodeContext.getNode(node[_TransferrableNodes.TransferrableNodeIndex.Index]) || node;
+/**
+ * @param node
+ */
+
+
+exports.readableTransferredNode = readableTransferredNode;
+
+function readableHydrateableNode(node) {
+  const out = {
+    nodeType: node[_TransferrableKeys.TransferrableKeys.nodeType],
+    name: node[_TransferrableKeys.TransferrableKeys.localOrNodeName],
+    attributes: null,
+    childNodes: null
+  };
+  const attributes = node[_TransferrableKeys.TransferrableKeys.attributes];
+
+  if (attributes) {
+    out.attributes = attributes.map(attr => ({
+      name: attr[1],
+      value: attr[2]
+    }));
+  }
+
+  const childNodes = node[_TransferrableKeys.TransferrableKeys.childNodes];
+
+  if (childNodes) {
+    out.childNodes = childNodes.map(readableHydrateableNode);
+  }
+
+  return out;
+}
+/**
+ * @param message {MessageToWorker}
+ */
+
+
+const isEvent = message => message[_TransferrableKeys.TransferrableKeys.type] == _Messages.MessageType.EVENT;
+
+const isValueSync = message => message[_TransferrableKeys.TransferrableKeys.type] == _Messages.MessageType.SYNC;
+
+const isBoundingClientRect = message => message[_TransferrableKeys.TransferrableKeys.type] === _Messages.MessageType.GET_BOUNDING_CLIENT_RECT;
+/**
+ * @param nodeContext {NodeContext}
+ * @param event {TransferrableEvent}
+ */
+
+
+function readableTransferrableEvent(nodeContext, event) {
+  const value = item => {
+    if (typeof item === 'number' || typeof item === 'boolean') {
+      return item !== undefined ? item : null;
+    }
+
+    return item !== undefined && item !== null ? readableTransferredNode(nodeContext, item) : null;
+  };
+
+  return {
+    type: event[_TransferrableKeys.TransferrableKeys.type],
+    bubbles: value(event[_TransferrableKeys.TransferrableKeys.bubbles]),
+    cancelable: value(event[_TransferrableKeys.TransferrableKeys.cancelable]),
+    cancelBubble: value(event[_TransferrableKeys.TransferrableKeys.cancelBubble]),
+    defaultPrevented: value(event[_TransferrableKeys.TransferrableKeys.defaultPrevented]),
+    eventPhase: value(event[_TransferrableKeys.TransferrableKeys.eventPhase]),
+    isTrusted: value(event[_TransferrableKeys.TransferrableKeys.isTrusted]),
+    returnValue: value(event[_TransferrableKeys.TransferrableKeys.returnValue]),
+    currentTarget: value(event[_TransferrableKeys.TransferrableKeys.currentTarget]),
+    target: value(event[_TransferrableKeys.TransferrableKeys.target]),
+    scoped: value(event[_TransferrableKeys.TransferrableKeys.scoped]),
+    keyCode: value(event[_TransferrableKeys.TransferrableKeys.keyCode])
+  };
+}
+/**
+ * @param nodeContext {NodeContext}
+ * @param value {TransferrableSyncValue}
+ */
+
+
+function readableTransferrableSyncValue(nodeContext, value) {
+  const index = value[_TransferrableKeys.TransferrableKeys.index];
+  return {
+    target: nodeContext.getNode(index) || index,
+    value: value[_TransferrableKeys.TransferrableKeys.value]
+  };
+}
+/**
+ * @param message
+ */
+
+
+function readableMessageToWorker(nodeContext, message) {
+  if (isEvent(message)) {
+    const event = message[_TransferrableKeys.TransferrableKeys.event];
+    return {
+      type: 'EVENT',
+      event: readableTransferrableEvent(nodeContext, event)
+    };
+  } else if (isValueSync(message)) {
+    const sync = message[_TransferrableKeys.TransferrableKeys.sync];
+    return {
+      type: 'SYNC',
+      sync: readableTransferrableSyncValue(nodeContext, sync)
+    };
+  } else if (isBoundingClientRect(message)) {
+    return {
+      type: 'GET_BOUNDING_CLIENT_RECT',
+      target: readableTransferredNode(nodeContext, message[_TransferrableKeys.TransferrableKeys.target])
+    };
+  } else {
+    return 'Unrecognized MessageToWorker type: ' + message[_TransferrableKeys.TransferrableKeys.type];
+  }
+}

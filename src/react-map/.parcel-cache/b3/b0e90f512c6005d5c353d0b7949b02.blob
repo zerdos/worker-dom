@@ -1,0 +1,314 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FunctionMutationIndex = exports.StorageMutationIndex = exports.TransferrableObjectType = exports.ObjectCreationIndex = exports.ObjectMutationIndex = exports.ImageBitmapMutationIndex = exports.OffscreenCanvasMutationIndex = exports.LongTaskMutationIndex = exports.PropertyMutationIndex = exports.CharacterDataMutationIndex = exports.AttributeMutationIndex = exports.ChildListMutationIndex = exports.ReadableMutationType = exports.DefaultAllowedMutations = exports.isUserVisibleMutation = exports.TransferrableMutationType = void 0;
+
+/**
+ * Copyright 2019 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+let TransferrableMutationType;
+/**
+ * Returns true if the mutation type can cause a user-visible change to the DOM.
+ * @param type
+ */
+
+exports.TransferrableMutationType = TransferrableMutationType;
+
+(function (TransferrableMutationType) {
+  TransferrableMutationType[TransferrableMutationType["ATTRIBUTES"] = 0] = "ATTRIBUTES";
+  TransferrableMutationType[TransferrableMutationType["CHARACTER_DATA"] = 1] = "CHARACTER_DATA";
+  TransferrableMutationType[TransferrableMutationType["CHILD_LIST"] = 2] = "CHILD_LIST";
+  TransferrableMutationType[TransferrableMutationType["PROPERTIES"] = 3] = "PROPERTIES";
+  TransferrableMutationType[TransferrableMutationType["EVENT_SUBSCRIPTION"] = 4] = "EVENT_SUBSCRIPTION";
+  TransferrableMutationType[TransferrableMutationType["GET_BOUNDING_CLIENT_RECT"] = 5] = "GET_BOUNDING_CLIENT_RECT";
+  TransferrableMutationType[TransferrableMutationType["LONG_TASK_START"] = 6] = "LONG_TASK_START";
+  TransferrableMutationType[TransferrableMutationType["LONG_TASK_END"] = 7] = "LONG_TASK_END";
+  TransferrableMutationType[TransferrableMutationType["OFFSCREEN_CANVAS_INSTANCE"] = 8] = "OFFSCREEN_CANVAS_INSTANCE";
+  TransferrableMutationType[TransferrableMutationType["OBJECT_MUTATION"] = 9] = "OBJECT_MUTATION";
+  TransferrableMutationType[TransferrableMutationType["OBJECT_CREATION"] = 10] = "OBJECT_CREATION";
+  TransferrableMutationType[TransferrableMutationType["IMAGE_BITMAP_INSTANCE"] = 11] = "IMAGE_BITMAP_INSTANCE";
+  TransferrableMutationType[TransferrableMutationType["STORAGE"] = 12] = "STORAGE";
+  TransferrableMutationType[TransferrableMutationType["FUNCTION_CALL"] = 13] = "FUNCTION_CALL";
+})(TransferrableMutationType || (exports.TransferrableMutationType = TransferrableMutationType = {}));
+
+const isUserVisibleMutation = type => {
+  switch (type) {
+    case TransferrableMutationType.EVENT_SUBSCRIPTION:
+    case TransferrableMutationType.GET_BOUNDING_CLIENT_RECT:
+    case TransferrableMutationType.LONG_TASK_START:
+    case TransferrableMutationType.LONG_TASK_END:
+    case TransferrableMutationType.STORAGE:
+    case TransferrableMutationType.OFFSCREEN_CANVAS_INSTANCE:
+    case TransferrableMutationType.FUNCTION_CALL:
+      return false;
+
+    default:
+      return true;
+  }
+};
+
+exports.isUserVisibleMutation = isUserVisibleMutation;
+const DefaultAllowedMutations = [TransferrableMutationType.ATTRIBUTES, TransferrableMutationType.CHARACTER_DATA, TransferrableMutationType.CHILD_LIST, TransferrableMutationType.PROPERTIES, TransferrableMutationType.EVENT_SUBSCRIPTION, TransferrableMutationType.GET_BOUNDING_CLIENT_RECT, TransferrableMutationType.LONG_TASK_START, TransferrableMutationType.LONG_TASK_END, TransferrableMutationType.OFFSCREEN_CANVAS_INSTANCE, TransferrableMutationType.OBJECT_MUTATION, TransferrableMutationType.OBJECT_CREATION, TransferrableMutationType.IMAGE_BITMAP_INSTANCE, TransferrableMutationType.STORAGE, TransferrableMutationType.FUNCTION_CALL];
+exports.DefaultAllowedMutations = DefaultAllowedMutations;
+const ReadableMutationType = {
+  0: 'ATTRIBUTES',
+  1: 'CHARACTER_DATA',
+  2: 'CHILD_LIST',
+  3: 'PROPERTIES',
+  4: 'EVENT_SUBSCRIPTION',
+  5: 'GET_BOUNDING_CLIENT_RECT',
+  6: 'LONG_TASK_START',
+  7: 'LONG_TASK_END',
+  8: 'OFFSCREEN_CANVAS_INSTANCE',
+  9: 'OBJECT_MUTATION',
+  10: 'OBJECT_CREATION',
+  11: 'IMAGE_BITMAP_INSTANCE',
+  12: 'STORAGE',
+  13: 'FUNCTION_INVOCATION'
+};
+/**
+ * Child List Mutations
+ * [
+ *   TransferrableMutationType.CHILD_LIST,
+ *   Target.index,
+ *   NextSibling.index,
+ *   PreviousSibling.index,
+ *   AppendedNodeCount,
+ *   RemovedNodeCount,
+ *   ... AppendedNode.index,
+ *   ... RemovedNode.index,
+ * ]
+ */
+
+exports.ReadableMutationType = ReadableMutationType;
+let ChildListMutationIndex;
+/**
+ * Attribute Mutations
+ * [
+ *   TransferrableMutationType.ATTRIBUTES,
+ *   Target.index,
+ *   Attr.name,
+ *   Attr.namespace,   // 0 is the default value.
+ *   Attr.value,       // 0 is the default value.
+ * ]
+ */
+
+exports.ChildListMutationIndex = ChildListMutationIndex;
+
+(function (ChildListMutationIndex) {
+  ChildListMutationIndex[ChildListMutationIndex["Target"] = 1] = "Target";
+  ChildListMutationIndex[ChildListMutationIndex["NextSibling"] = 2] = "NextSibling";
+  ChildListMutationIndex[ChildListMutationIndex["PreviousSibling"] = 3] = "PreviousSibling";
+  ChildListMutationIndex[ChildListMutationIndex["AppendedNodeCount"] = 4] = "AppendedNodeCount";
+  ChildListMutationIndex[ChildListMutationIndex["RemovedNodeCount"] = 5] = "RemovedNodeCount";
+  ChildListMutationIndex[ChildListMutationIndex["Nodes"] = 6] = "Nodes";
+  ChildListMutationIndex[ChildListMutationIndex["End"] = 6] = "End";
+})(ChildListMutationIndex || (exports.ChildListMutationIndex = ChildListMutationIndex = {}));
+
+let AttributeMutationIndex;
+/**
+ * Character Data Mutations
+ * [
+ *   TransferrableMutationType.CHARACTER_DATA,
+ *   Target.index,
+ *   CharacterData.value,
+ * ]
+ */
+
+exports.AttributeMutationIndex = AttributeMutationIndex;
+
+(function (AttributeMutationIndex) {
+  AttributeMutationIndex[AttributeMutationIndex["Target"] = 1] = "Target";
+  AttributeMutationIndex[AttributeMutationIndex["Name"] = 2] = "Name";
+  AttributeMutationIndex[AttributeMutationIndex["Namespace"] = 3] = "Namespace";
+  AttributeMutationIndex[AttributeMutationIndex["Value"] = 4] = "Value";
+  AttributeMutationIndex[AttributeMutationIndex["End"] = 5] = "End";
+})(AttributeMutationIndex || (exports.AttributeMutationIndex = AttributeMutationIndex = {}));
+
+let CharacterDataMutationIndex;
+/**
+ * Properties Mutations
+ * [
+ *   TransferrableMutationType.PROPERTIES,
+ *   Target.index,
+ *   Property.name,
+ *   typeof Property.value === boolean,
+ *   Property.value,
+ * ]
+ */
+
+exports.CharacterDataMutationIndex = CharacterDataMutationIndex;
+
+(function (CharacterDataMutationIndex) {
+  CharacterDataMutationIndex[CharacterDataMutationIndex["Target"] = 1] = "Target";
+  CharacterDataMutationIndex[CharacterDataMutationIndex["Value"] = 2] = "Value";
+  CharacterDataMutationIndex[CharacterDataMutationIndex["End"] = 3] = "End";
+})(CharacterDataMutationIndex || (exports.CharacterDataMutationIndex = CharacterDataMutationIndex = {}));
+
+let PropertyMutationIndex;
+/**
+ * Long Task Mutations
+ * [
+ *   TransferrableMutationType.LONG_TASK_START || TransferrableMutation.LONG_TASK_END
+ *   Target.index,
+ * ]
+ */
+
+exports.PropertyMutationIndex = PropertyMutationIndex;
+
+(function (PropertyMutationIndex) {
+  PropertyMutationIndex[PropertyMutationIndex["Target"] = 1] = "Target";
+  PropertyMutationIndex[PropertyMutationIndex["Name"] = 2] = "Name";
+  PropertyMutationIndex[PropertyMutationIndex["IsBoolean"] = 3] = "IsBoolean";
+  PropertyMutationIndex[PropertyMutationIndex["Value"] = 4] = "Value";
+  PropertyMutationIndex[PropertyMutationIndex["End"] = 5] = "End";
+})(PropertyMutationIndex || (exports.PropertyMutationIndex = PropertyMutationIndex = {}));
+
+let LongTaskMutationIndex;
+/**
+ * OffscreenCanvas Mutations
+ * [
+ *   TransferrableMutationType.OFFSCREEN_CANVAS_INSTANCE,
+ *   Target.index,
+ * ]
+ */
+
+exports.LongTaskMutationIndex = LongTaskMutationIndex;
+
+(function (LongTaskMutationIndex) {
+  LongTaskMutationIndex[LongTaskMutationIndex["Target"] = 1] = "Target";
+  LongTaskMutationIndex[LongTaskMutationIndex["End"] = 2] = "End";
+})(LongTaskMutationIndex || (exports.LongTaskMutationIndex = LongTaskMutationIndex = {}));
+
+let OffscreenCanvasMutationIndex;
+/**
+ * ImageBitmap Mutations
+ * [
+ *   TransferrableMutationType.IMAGE_BITMAP_INSTANCE,
+ *   Target.index,
+ * ]
+ */
+
+exports.OffscreenCanvasMutationIndex = OffscreenCanvasMutationIndex;
+
+(function (OffscreenCanvasMutationIndex) {
+  OffscreenCanvasMutationIndex[OffscreenCanvasMutationIndex["Target"] = 1] = "Target";
+  OffscreenCanvasMutationIndex[OffscreenCanvasMutationIndex["End"] = 2] = "End";
+})(OffscreenCanvasMutationIndex || (exports.OffscreenCanvasMutationIndex = OffscreenCanvasMutationIndex = {}));
+
+let ImageBitmapMutationIndex;
+/**
+ * ObjectMutation Mutations
+ * [
+ *   TransferrableMutationType.IMAGE_BITMAP_INSTANCE,
+ *   Target.index,
+ * ]
+ * // TODO(choumx): Fix naming inconsistency.
+ */
+
+exports.ImageBitmapMutationIndex = ImageBitmapMutationIndex;
+
+(function (ImageBitmapMutationIndex) {
+  ImageBitmapMutationIndex[ImageBitmapMutationIndex["Target"] = 1] = "Target";
+  ImageBitmapMutationIndex[ImageBitmapMutationIndex["CallIndex"] = 2] = "CallIndex";
+  ImageBitmapMutationIndex[ImageBitmapMutationIndex["End"] = 3] = "End";
+})(ImageBitmapMutationIndex || (exports.ImageBitmapMutationIndex = ImageBitmapMutationIndex = {}));
+
+let ObjectMutationIndex;
+exports.ObjectMutationIndex = ObjectMutationIndex;
+
+(function (ObjectMutationIndex) {
+  ObjectMutationIndex[ObjectMutationIndex["FunctionName"] = 1] = "FunctionName";
+  ObjectMutationIndex[ObjectMutationIndex["ArgumentCount"] = 2] = "ArgumentCount";
+  ObjectMutationIndex[ObjectMutationIndex["SerializedTarget"] = 3] = "SerializedTarget";
+})(ObjectMutationIndex || (exports.ObjectMutationIndex = ObjectMutationIndex = {}));
+
+/**
+ * ObjectCreation Mutations
+ * [
+ *   TransferrableMutationType.IMAGE_BITMAP_INSTANCE,
+ *   Target.index,
+ * ]
+ * // TODO(choumx): Fix naming inconsistency.
+ */
+let ObjectCreationIndex;
+exports.ObjectCreationIndex = ObjectCreationIndex;
+
+(function (ObjectCreationIndex) {
+  ObjectCreationIndex[ObjectCreationIndex["FunctionName"] = 1] = "FunctionName";
+  ObjectCreationIndex[ObjectCreationIndex["ObjectId"] = 2] = "ObjectId";
+  ObjectCreationIndex[ObjectCreationIndex["ArgumentCount"] = 3] = "ArgumentCount";
+  ObjectCreationIndex[ObjectCreationIndex["SerializedTarget"] = 4] = "SerializedTarget";
+})(ObjectCreationIndex || (exports.ObjectCreationIndex = ObjectCreationIndex = {}));
+
+/**
+ * Used in OBJECT_MUTATION and OBJECT_CREATION mutations for typing non-primitives
+ * passed in function parameters, e.g. <image> in CanvasRenderingContext2D.drawImage(<image>).
+ */
+let TransferrableObjectType;
+/**
+ * Storage Mutations
+ * [
+ *   TransferrableMutationType.STORAGE,
+ *   GetOrSet,
+ *   StorageLocation,
+ *   string(key),
+ *   string(value),
+ * ]
+ */
+
+exports.TransferrableObjectType = TransferrableObjectType;
+
+(function (TransferrableObjectType) {
+  TransferrableObjectType[TransferrableObjectType["SmallInt"] = 1] = "SmallInt";
+  TransferrableObjectType[TransferrableObjectType["Float"] = 2] = "Float";
+  TransferrableObjectType[TransferrableObjectType["String"] = 3] = "String";
+  TransferrableObjectType[TransferrableObjectType["Array"] = 4] = "Array";
+  TransferrableObjectType[TransferrableObjectType["TransferObject"] = 5] = "TransferObject";
+  TransferrableObjectType[TransferrableObjectType["CanvasRenderingContext2D"] = 6] = "CanvasRenderingContext2D";
+  TransferrableObjectType[TransferrableObjectType["HTMLElement"] = 7] = "HTMLElement";
+})(TransferrableObjectType || (exports.TransferrableObjectType = TransferrableObjectType = {}));
+
+let StorageMutationIndex;
+/**
+ * [
+ *   TransferrableMutationType.FunctionInvocation,
+ *   ResolveOrReject,
+ *   index,
+ *   string(value)
+ * ]
+ */
+
+exports.StorageMutationIndex = StorageMutationIndex;
+
+(function (StorageMutationIndex) {
+  StorageMutationIndex[StorageMutationIndex["Operation"] = 1] = "Operation";
+  StorageMutationIndex[StorageMutationIndex["Location"] = 2] = "Location";
+  StorageMutationIndex[StorageMutationIndex["Key"] = 3] = "Key";
+  StorageMutationIndex[StorageMutationIndex["Value"] = 4] = "Value";
+  StorageMutationIndex[StorageMutationIndex["End"] = 5] = "End";
+})(StorageMutationIndex || (exports.StorageMutationIndex = StorageMutationIndex = {}));
+
+let FunctionMutationIndex;
+exports.FunctionMutationIndex = FunctionMutationIndex;
+
+(function (FunctionMutationIndex) {
+  FunctionMutationIndex[FunctionMutationIndex["Status"] = 1] = "Status";
+  FunctionMutationIndex[FunctionMutationIndex["Index"] = 2] = "Index";
+  FunctionMutationIndex[FunctionMutationIndex["Value"] = 3] = "Value";
+  FunctionMutationIndex[FunctionMutationIndex["End"] = 4] = "End";
+})(FunctionMutationIndex || (exports.FunctionMutationIndex = FunctionMutationIndex = {}));

@@ -1,0 +1,101 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EventSubscriptionMutationIndex = exports.REMOVE_EVENT_SUBSCRIPTION_LENGTH = exports.RemoveEventRegistrationIndex = exports.ADD_EVENT_SUBSCRIPTION_LENGTH = exports.AddEventRegistrationIndex = exports.TransferrableTouchIndex = void 0;
+
+var _TransferrableKeys = require("./TransferrableKeys");
+
+/**
+ * Copyright 2019 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+let TransferrableTouchIndex;
+exports.TransferrableTouchIndex = TransferrableTouchIndex;
+
+(function (TransferrableTouchIndex) {
+  TransferrableTouchIndex[TransferrableTouchIndex["Identifier"] = 0] = "Identifier";
+  TransferrableTouchIndex[TransferrableTouchIndex["ScreenX"] = 1] = "ScreenX";
+  TransferrableTouchIndex[TransferrableTouchIndex["ScreenY"] = 2] = "ScreenY";
+  TransferrableTouchIndex[TransferrableTouchIndex["ClientX"] = 3] = "ClientX";
+  TransferrableTouchIndex[TransferrableTouchIndex["ClientY"] = 4] = "ClientY";
+  TransferrableTouchIndex[TransferrableTouchIndex["PageX"] = 5] = "PageX";
+  TransferrableTouchIndex[TransferrableTouchIndex["PageY"] = 6] = "PageY";
+  TransferrableTouchIndex[TransferrableTouchIndex["Target"] = 7] = "Target";
+})(TransferrableTouchIndex || (exports.TransferrableTouchIndex = TransferrableTouchIndex = {}));
+
+/**
+ * Add Event Registration Transfer
+ *
+ * [
+ *   type,
+ *   index,
+ *   capture,
+ *   once,
+ *   passive,
+ *   workerDOMPreventDefault
+ * ]
+ */
+let AddEventRegistrationIndex;
+exports.AddEventRegistrationIndex = AddEventRegistrationIndex;
+
+(function (AddEventRegistrationIndex) {
+  AddEventRegistrationIndex[AddEventRegistrationIndex["Type"] = 0] = "Type";
+  AddEventRegistrationIndex[AddEventRegistrationIndex["Index"] = 1] = "Index";
+  AddEventRegistrationIndex[AddEventRegistrationIndex["Capture"] = 2] = "Capture";
+  AddEventRegistrationIndex[AddEventRegistrationIndex["Once"] = 3] = "Once";
+  AddEventRegistrationIndex[AddEventRegistrationIndex["Passive"] = 4] = "Passive";
+  AddEventRegistrationIndex[AddEventRegistrationIndex["WorkerDOMPreventDefault"] = 5] = "WorkerDOMPreventDefault";
+})(AddEventRegistrationIndex || (exports.AddEventRegistrationIndex = AddEventRegistrationIndex = {}));
+
+const ADD_EVENT_SUBSCRIPTION_LENGTH = 6;
+/**
+ * Remove Event Registration Transfer
+ */
+
+exports.ADD_EVENT_SUBSCRIPTION_LENGTH = ADD_EVENT_SUBSCRIPTION_LENGTH;
+let RemoveEventRegistrationIndex;
+exports.RemoveEventRegistrationIndex = RemoveEventRegistrationIndex;
+
+(function (RemoveEventRegistrationIndex) {
+  RemoveEventRegistrationIndex[RemoveEventRegistrationIndex["Type"] = 0] = "Type";
+  RemoveEventRegistrationIndex[RemoveEventRegistrationIndex["Index"] = 1] = "Index";
+})(RemoveEventRegistrationIndex || (exports.RemoveEventRegistrationIndex = RemoveEventRegistrationIndex = {}));
+
+const REMOVE_EVENT_SUBSCRIPTION_LENGTH = 2;
+/**
+ * Event Subscription Transfer
+ *
+ * [
+ *   TransferrableMutationType.EVENT_SUBSCRIPTION,
+ *   Target.index,
+ *   RemoveEventListener.count,
+ *   AddEventListener.count,
+ *   ...RemoveEvent<RemoveEventRegistration>,
+ *   ...AddEvent<AddEventRegistration>,
+ * ]
+ */
+
+exports.REMOVE_EVENT_SUBSCRIPTION_LENGTH = REMOVE_EVENT_SUBSCRIPTION_LENGTH;
+let EventSubscriptionMutationIndex;
+exports.EventSubscriptionMutationIndex = EventSubscriptionMutationIndex;
+
+(function (EventSubscriptionMutationIndex) {
+  EventSubscriptionMutationIndex[EventSubscriptionMutationIndex["Target"] = 1] = "Target";
+  EventSubscriptionMutationIndex[EventSubscriptionMutationIndex["RemoveEventListenerCount"] = 2] = "RemoveEventListenerCount";
+  EventSubscriptionMutationIndex[EventSubscriptionMutationIndex["AddEventListenerCount"] = 3] = "AddEventListenerCount";
+  EventSubscriptionMutationIndex[EventSubscriptionMutationIndex["Events"] = 4] = "Events";
+  EventSubscriptionMutationIndex[EventSubscriptionMutationIndex["End"] = 4] = "End";
+})(EventSubscriptionMutationIndex || (exports.EventSubscriptionMutationIndex = EventSubscriptionMutationIndex = {}));

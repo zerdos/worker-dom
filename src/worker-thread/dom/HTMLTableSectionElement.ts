@@ -16,7 +16,7 @@
 
 import { registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
-import { tagNameConditionPredicate, matchChildrenElements } from './matchElements';
+import { matchChildrenElements, tagNameConditionPredicate } from './matchElements';
 import { Document } from './Document';
 import { HTMLTableRowElement } from './HTMLTableRowElement';
 

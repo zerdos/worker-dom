@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { registerSubclass, definePropertyBackedAttributes } from './Element';
+import { definePropertyBackedAttributes, registerSubclass } from './Element';
 import { HTMLElement } from './HTMLElement';
 import { DOMTokenList, synchronizedAccessor } from './DOMTokenList';
 import { reflectProperties } from './enhanceElement';
